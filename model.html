@@ -6,6 +6,7 @@
 	<script src='js/three.js'></script>
 	<script src='js/OBJLoader.js'></script>
 	<script src='js/MTLLoader.js'></script>
+	<script src='js/GLTFLoader.js'></script>
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -114,13 +115,13 @@ function initialize()
 		type: 'pattern', patternUrl: "data/hiro.patt",
 	})
 
-	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
-	let loader = new THREE.TextureLoader();
-	// let texture = loader.load( 'images/earth.jpg', render );
-	let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
-	mesh1 = new THREE.Mesh( geometry1, material1 );
-	mesh1.rotation.x = -Math.PI/2;
-	markerRoot1.add( mesh1 );
+	// let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
+	// let loader = new THREE.TextureLoader();
+	// // let texture = loader.load( 'images/earth.jpg', render );
+	// let material1 = new THREE.MeshBasicMaterial( { color: 0x0000ff, opacity: 0.5 } );
+	// mesh1 = new THREE.Mesh( geometry1, material1 );
+	// mesh1.rotation.x = -Math.PI/2;
+	// markerRoot1.add( mesh1 );
 	
 	function onProgress(xhr) { console.log( (xhr.loaded / xhr.total * 100) + '% loaded' ); }
 	function onError(xhr) { console.log( 'An error happened' ); }
@@ -132,14 +133,25 @@ function initialize()
 			new THREE.OBJLoader()
 				.setMaterials( materials )
 				.setPath( 'models/' )
-				.load( 'modern chair 11 obj.obj', function ( group ) {
+				.load( 'tem.obj', function ( group ) {
 					mesh0 = group.children[0];
 					mesh0.material.side = THREE.DoubleSide;
-					mesh0.position.y = 0.25;
-					mesh0.scale.set(0.01,0.01,0.01);
+					mesh0.position.y = 0;
+					mesh0.scale.set(0.02,0.02,0.02);
+					mesh0.rotation.x = -Math.PI/2;
 					markerRoot1.add(mesh0);
+					
 				}, onProgress, onError );
 		});
+	// loader = new THREE.GLTFLoader();
+	// loader.load('stonehenge.glb', function ( gltf ) {
+	// scene.add( gltf.scene );
+	// console.log("Entered")
+	// gltf.scene.position.y = 0;
+	// gltf.scene.scale(1,1,1);
+	// markerRoot1.add( gltf.scene );
+	// render();
+	// }, onProgress, onError);
 }
 
 
